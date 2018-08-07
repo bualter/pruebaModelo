@@ -49,7 +49,7 @@ class Humano extends Dato
 }
 
 $humano = new Humano;
-$humano->insert([
+$humano->save([
   'nombre' => 'Hugo',
   'especie' => 'Humano'
 ]);
