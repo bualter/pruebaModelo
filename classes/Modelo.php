@@ -7,14 +7,20 @@ class Modelo
   public $datos;
   protected $db;
 
-  public function __construct($datos=[])
-  {
+  public function __construct($datos=[]){
     $this->datos = $datos;
-    $this->db = new JSON_DB();
+    $this->db = new MySQL_DB();
   }
 
-  public function save()
-  {
+  public function getColumns(){
+    return $this->columns;
+  }
+
+  public function getDatos(){
+    return $this->datos;
+  }
+
+  public function save(){
     if (!$this->getAttr('id')) {
       $this->insert();
     } else {
@@ -22,20 +28,34 @@ class Modelo
     }
   }
 
-  private function insert()
-  {
-    $this->db->insert($this->datos, $this);
+  private function insert(){
+    $this->db->insert($this, $this->datos);
   }
 
-  public function getAttr($attr)
-  {
+  public function getAttr($attr){
     return isset($this->datos[$attr]) ? $this->datos[$attr] : null;
   }
 
-  public function setAttr($attr, $value)
-  {
+  public function setAttr($attr, $value){
     $this->datos[$attr] = $value;
   }
 
+  public function find($id){
+
+    if ($fila= $this->db->find($this, $id)){
+      foreach ($fila as $attr => $value) {
+        $this->setAttr($attr, $value);
+      }
+      return $this;
+    }
+    return false;
+  }
+
+  public static function findAll($model){
+
+    $instance = new self;
+    $todosLosObjetos = $instance->db->findAll($model);
+    return isset($todosLosObjetos) ? $todosLosObjetos : null;
+  }
 
 }

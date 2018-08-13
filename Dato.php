@@ -9,7 +9,7 @@ class Dato
   public function __construct()
   {
     try {
-      $this->db = new PDO('mysql:host=localhost;dbname=vet', 'root', 'root');
+      $this->db = new PDO('mysql:host=localhost;dbname=vet', 'root', '');
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch (Exception $e) {
       echo $e->getMessage();

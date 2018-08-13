@@ -10,7 +10,7 @@ class JSON_DB extends DB
     $this->file = __DIR__ . '/../vet.json';
   }
 
-  public function insert($datos, $modelo)
+  public function insert($modelo, $datos)
   {
     $insert = [
       $modelo->table => $datos
@@ -18,4 +18,18 @@ class JSON_DB extends DB
     $insert = json_encode($insert);
     file_put_contents($this->file, $insert);
   }
+
+  public function update($modelo, $datos, $id){
+
+  }
+
+  public function find($modelo, $id){
+
+  }
+
+  public function findAll($modelo){
+
+  }
+
+
 }
